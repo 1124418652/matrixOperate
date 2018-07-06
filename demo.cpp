@@ -11,7 +11,7 @@ void main()
 	matrix1.create(m);
 	matrix2.zeros(10);
 	matrix3.eye(10);
-	matrix4 = matrix+matrix1;
+	matrix4 = matrix-matrix1;
 	matrix.show();
 	cout<<"show matrix1"<<endl;
 	matrix1.show();

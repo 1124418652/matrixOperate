@@ -1,3 +1,5 @@
+#include <iostream>
+using namespace std;
 typedef unsigned int UINT;
 
 template<class T>
@@ -20,11 +22,13 @@ class Matrix
 		UINT zeros(int size);
 		UINT eye(int size);
 
-		friend Matrix operator+(const Matrix &a, const Matrix &b);
-		friend Matrix operator-(const Matrix &a, const Matrix &b);
-		
-		//	friend Matrix operator*(const Matrix &a, const Matrix &b);
-		//	friend ostream &operator<<(ostream &output, const Matrix &a);
+		//friend Matrix operator+(const Matrix &a, const Matrix &b);
+		Matrix operator+(const Matrix &);
+		//friend Matrix operator-(const Matrix &a, const Matrix &b);
+		Matrix operator-(const Matrix &);
+		//friend Matrix operator*(const Matrix &a, const Matrix &b);
+		Matrix operator*(const Matrix &);
+		friend ostream &operator<<(ostream &output, const Matrix &a);
 		Matrix matrix_T();              // transpose the matrix
 		Matrix matrix_Inv();            // calculate matrix's inverse
 		Matrix matrix_Adjoint();        // calculate the adjoint matrix
@@ -109,7 +113,7 @@ UINT Matrix<T>::eye(int size)
 	return 1;
 }
 
-/*
+
 template<class T>
 Matrix<T> Matrix<T>::operator +(const Matrix<T> &m1)
 {
@@ -128,8 +132,47 @@ Matrix<T> Matrix<T>::operator +(const Matrix<T> &m1)
 	}
 	return Matrix<T>(tmp, row, col);
 }
-*/
 
+template<class T>
+Matrix<T> Matrix<T>::operator -(const Matrix<T> &m1)
+{
+	if (m1.col!=col || m1.row!=row)
+	{
+		cout<<"These two matrices can't be plused!"<<endl;
+		exit(0);
+	}
+	T *tmp = new T[col*row];
+	for (int i=0; i<row; i++)
+	{
+		for (int j=0; j<col; j++)
+		{
+			tmp[i*col+j] = m1.matrix[i*col+j] - matrix[i*col+j];
+		}
+	}
+	return Matrix<T>(tmp, row, col);
+}
+
+
+template<class T>
+Matrix<T> Matrix<T>::operator *(const Matrix &m1)
+{
+	if (col != m1.row)
+	{
+		cout<<"These two matrices can't be multiplied"<<endl;
+		exit(0);
+	}
+	T *tmp = new T[row*m1.col];
+	for (int i=0; i<row; i++)
+	{
+		for (int j=0; j<m1.col; j++)
+		{
+
+		}
+	}
+	return Matrix<T>(tmp, row, m1.col);
+}
+
+/*
 template<class T>
 Matrix<T> operator +(const Matrix<T> &m1, const Matrix<T> &m2)
 {
@@ -167,3 +210,4 @@ Matrix<T> operator -(const Matrix<T> &m1, const Matrix<T> &m2)
 	}
 	return Matrix<T>(tmp, m1.row, m1.col);
 }
+*/
