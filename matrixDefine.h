@@ -166,10 +166,22 @@ Matrix<T> Matrix<T>::operator *(const Matrix &m1)
 	{
 		for (int j=0; j<m1.col; j++)
 		{
-
+            T data = 0;
+            for(int m_1=0; m_1<col; m_1++)
+            {
+                data = data + matrix[i*col+m_1] * m1.matrix[m_1*m1.col+j];
+            }
+            tmp[i*m1.col+j] = data;
 		}
 	}
 	return Matrix<T>(tmp, row, m1.col);
+}
+
+
+template<class T>
+Matrix<T> Matrix<T>::matrix_T()
+{
+
 }
 
 /*
